@@ -1,7 +1,5 @@
 CREATE Table tweets(
 tweet_number INT,
-tweet_date VARCHAR(10),
-user_name VARCHAR(50),
 text_input VARCHAR(500),
 PRIMARY KEY (tweet_number)
 );

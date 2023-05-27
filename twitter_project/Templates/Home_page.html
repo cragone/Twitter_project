@@ -1,24 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
   <title>Message Board</title>
 </head>
 <body>
-  <h1>Message Board</h1>
+  <h1>Twitter</h1>
+    <form action="tweet" method="post">
+        <p>Enter tweet here</p>
+        <br>
+        <input type="input" name="tweet_input">
+        <br>
+        <input type="submit" value="TWEET" id="tweet">
+    </form>
+  
 
-  <!-- Form to submit a new message -->
-  <form>
-    <label for="author">Name:</label>
-    <input type="text" id="author" required>
-    <br>
-    <label for="content">Message:</label>
-    <textarea id="content" required></textarea>
-    <br>
-    <button type="submit">Post Message</button>
-  </form>
-
-  <!-- Display area for messages -->
-  <div id="messageBoard"></div>
 </body>
 </html>
 
