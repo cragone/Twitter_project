@@ -2,21 +2,52 @@
 <html>
 <head>
     <meta charset="UTF-8">
-  <title>Message Board</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Message Board</title>
 </head>
 <body>
-  <h1>Twitter</h1>
-    <form action="tweet" method="post">
-        <p>Enter tweet here</p>
-        <br>
-        <input type="input" name="tweet_input">
-        <br>
-        <input type="submit" value="TWEET" id="tweet">
+    <h1>Twitter</h1>
+    <form id="tweetForm" onsubmit=""submitForm(event)>
+      <label for="content">Enter Tweet content:</label>
+      <input type="text" id="content" name="content">
+      <button type="submit">Send POST Request</button>
     </form>
-  
 
-</body>
+    <script>
+      $(document).ready(function() {
+        $('#tweetForm').submit(function(event) {
+          event.preventDefault(); // Prevent form submission
+  
+          const content = $('#content').val(); // Get the inputted content
+  
+          // Define the data to be sent in the request
+          const data = {
+            content: content,
+          };
+  
+          // Make the POST request
+          axios.post('/dunne', data)
+            .then(response => {
+              // Handle the response
+              console.log('Response:', response.data);
+              console.log('Post Successful');
+            })
+            .catch(error => {
+              // Handle the error
+              console.error('Error:', error);
+            });
+        });
+      });
+    </script>
+
+
+
+  </body>
+
+
 </html>
+
 
 
 

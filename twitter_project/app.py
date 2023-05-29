@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request
 import psycopg2
 
 app = Flask(__name__)
@@ -7,16 +7,14 @@ app = Flask(__name__)
 def index():
     return render_template("Home_page.html")
 
-@app.route('/dunne', methods=['GET','POST'])
+@app.route('/dunne', methods=['GET', 'POST'])
 def post_request():
     if request.method == 'GET':
-        return "This is a GET request."
+        return render_template("dunne.html")
     if request.method == 'POST':
-        tweet_number = request.form.get('number')
         tweet = request.form.get('content')
-
-
-try:
+        
+        try:
             connection = psycopg2.connect(
                 user="postgres",
                 password="postgrespostgres",
@@ -26,6 +24,17 @@ try:
             )
 
             cursor = connection.cursor()
+
+            insert_query = "INSERT INTO tweets (id, content) VALUES (DEFAULT, %s)"
+            cursor.execute(insert_query, (tweet,))
+
+            connection.commit()
+            cursor.close()
+            connection.close()
+            
+            return "Tweet inserted successfully!"
+        except (Exception, psycopg2.Error) as error:
+            return f"Error: {error}"
 
 
 if __name__ == '__main__':
