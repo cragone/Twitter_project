@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Message Board</title>
+</head>
+<body>
+    <h1>Twitter</h1>
+    <form id="tweetForm" >
+      <label for="content">Enter Tweet content:</label>
+      <input type="text" id="content" name="content">
+      <button type="button" id="tweetButton" onclick="makeTweet()">Send POST Request</button>
+    </form>
+
+    <script>
+        function makeTweet(){
+          let myinput = $("#content").val();
+          alert(myinput)
+          // Make the POST request
+          axios.post(`/dunne?tweet=${myinput}`)
+            .then(response => {
+              // Handle the response
+              console.log('Response:', response.data);
+              console.log('Post Successful');
+            })
+            .catch(error => {
+              // Handle the error
+              console.error('Error:', error);
+            });
+          }
+        
+    </script>
+  
+
+
+
+  </body>
+
+
+</html>
+
+
+
+

@@ -1,0 +1,5 @@
+CREATE Table tweets(
+tweet_number INT,
+text_input VARCHAR(500),
+PRIMARY KEY (tweet_number)
+);
