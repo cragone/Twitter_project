@@ -23,8 +23,8 @@
                 <th>Tweet</th>
             </tr>
         </thead>
-        <tbody>
-
+        <tbody id="tableData">
+          
         </tbody>
     </table>
    
@@ -32,6 +32,12 @@
 
 
     <script>
+        function addTweets(){
+          let data = $("#tableData").append("<tr><th>poop</th></tr>");
+        }
+
+
+
         function makeTweet(){
           let myinput = $("#content").val();
           alert(myinput)
@@ -41,6 +47,7 @@
               // Handle the response
               console.log('Response:', response.data);
               console.log('Post Successful');
+              addTweets();
             })
             .catch(error => {
               // Handle the error
@@ -48,16 +55,7 @@
             });
           }
 
-        // Make the Axios GET request to retrieve tweets
-        axios.get(`/hill`)
-            .then(response => {
-                // Populate the table body with the retrieved tweets
-                tableM.rows.add(response.data).draw();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-
+        
 </script>
 
 

@@ -44,6 +44,7 @@ def get_request():
         cursor.execute(select_query)
         rows = cursor.fetchall()
         print(rows)
+        return rows, 200
     except:
         return "ate pizza", 400
 
