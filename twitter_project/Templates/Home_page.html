@@ -8,26 +8,35 @@
 </head>
 <body>
     <h1>Twitter</h1>
-    <form id="tweetForm" onsubmit=""submitForm(event)>
+    <form id="tweetForm" >
       <label for="content">Enter Tweet content:</label>
       <input type="text" id="content" name="content">
-      <button type="submit">Send POST Request</button>
+      <button type="button" id="tweetButton" onclick="makeTweet()">Send POST Request</button>
     </form>
 
+
+    <h1>Tweeting!</h1>
+    <table id="myTable1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tweet</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+   
+
+
+
     <script>
-      $(document).ready(function() {
-        $('#tweetForm').submit(function(event) {
-          event.preventDefault(); // Prevent form submission
-  
-          const content = $('#content').val(); // Get the inputted content
-  
-          // Define the data to be sent in the request
-          const data = {
-            content: content,
-          };
-  
+        function makeTweet(){
+          let myinput = $("#content").val();
+          alert(myinput)
           // Make the POST request
-          axios.post('/dunne', data)
+          axios.post(`/dunne?tweet=${myinput}`)
             .then(response => {
               // Handle the response
               console.log('Response:', response.data);
@@ -37,10 +46,19 @@
               // Handle the error
               console.error('Error:', error);
             });
-        });
-      });
-    </script>
+          }
 
+        // Make the Axios GET request to retrieve tweets
+        axios.get(`/hill`)
+            .then(response => {
+                // Populate the table body with the retrieved tweets
+                tableM.rows.add(response.data).draw();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+</script>
 
 
   </body>

@@ -7,35 +7,45 @@ app = Flask(__name__)
 def index():
     return render_template("Home_page.html")
 
-@app.route('/dunne', methods=['GET', 'POST'])
+@app.route('/dunne', methods=['POST'])
 def post_request():
-    if request.method == 'GET':
-        return render_template("dunne.html")
-    if request.method == 'POST':
-        tweet = request.form.get('content')
-        
-        try:
-            connection = psycopg2.connect(
-                user="postgres",
-                password="postgrespostgres",
-                host="localhost",
-                port="5432",
-                database="Practice data"
-            )
+    content = request.args.get("tweet", None, str)
+    if content is None:
+        return "Watch out for squidward", 400
+    print(content)
+    connection = psycopg2.connect(
+                    user="postgres",
+                    password="postgrespostgres",
+                    host="localhost",
+                    port="5432",
+                    database="Practice data"
+             )
+    cursor = connection.cursor()
 
-            cursor = connection.cursor()
+    insert_query = "INSERT INTO tweets (content) VALUES (%s); COMMIT;"
+    cursor.execute(insert_query, (content,))
+    
 
-            insert_query = "INSERT INTO tweets (id, content) VALUES (DEFAULT, %s)"
-            cursor.execute(insert_query, (tweet,))
+    return "Good Request", 200
 
-            connection.commit()
-            cursor.close()
-            connection.close()
-            
-            return "Tweet inserted successfully!"
-        except (Exception, psycopg2.Error) as error:
-            return f"Error: {error}"
+@app.route('/hill', methods=['GET'])
+def get_request():
+    try:
+        connection = psycopg2.connect(
+            user="postgres",
+            password="postgrespostgres",
+            host="localhost",
+            port="5432",
+            database="Practice data"
+        )
+        cursor = connection.cursor()
 
+        select_query = "SELECT * FROM tweets;"
+        cursor.execute(select_query)
+        rows = cursor.fetchall()
+        print(rows)
+    except:
+        return "ate pizza", 400
 
 if __name__ == '__main__':
     app.run(debug=True)
