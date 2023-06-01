@@ -12,7 +12,6 @@ def post_request():
     content = request.args.get("tweet", None, str)
     if content is None:
         return "Watch out for squidward", 400
-    print(content)
     connection = psycopg2.connect(
                     user="postgres",
                     password="postgrespostgres",
