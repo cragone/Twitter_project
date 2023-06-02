@@ -39,7 +39,7 @@ def get_request():
         )
         cursor = connection.cursor()
 
-        select_query = "SELECT * FROM tweets;"
+        select_query = "SELECT * FROM tweets ORDER BY id DESC;"
         cursor.execute(select_query)
         rows = cursor.fetchall()
         print(rows)
